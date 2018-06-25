@@ -13,10 +13,17 @@ from flask import send_file, request, send_from_directory
 import thread
 
 app = Flask(__name__, static_url_path='')
+
 @app.route("/")
 def main():
     try:
 	return send_file('www/index.html')
+    except Exception as e:
+	return str(e)
+@app.route("/price-to-marketcap")
+def price2mkcap():
+    try:
+	return send_file('www/price2mkcap.html')
     except Exception as e:
 	return str(e)
 @app.route('/data/<path:path>')
@@ -34,6 +41,9 @@ def do_compute():
         import plot_market
         reload(plot_market)
         print "Plot Data Done."
+        import plot_price2mkcap
+        reload(plot_price2mkcap)
+        print "Plot 2 Done."
     except Exception as e:
         print e
 

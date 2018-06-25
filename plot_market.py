@@ -46,7 +46,7 @@ print price_changes
 # output to static HTML file
 # output_file("current-price.html")
 
-title = "Market @%s (15 minutes delay, source: SetTrade.com)" % dat['ts']
+title = "Market Today @%s (15 minutes delay, source: SetTrade.com)" % dat['ts']
 p = figure(title=title, plot_width=1400, plot_height=700, x_axis_type="log", y_range=(-20,20))
 
 # add a circle renderer with a size, color, and alpha

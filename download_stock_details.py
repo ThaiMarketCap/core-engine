@@ -21,7 +21,6 @@ snapshotFile = os.path.join(dataFolder, "snapshot" + ts.strftime("%Y%m%d_%H%M") 
 r = requests.get(startPage)
 # check content received
 print r.status_code
-# print r.content[:100]
 
 # Save the index page
 indexFile = os.path.join(dataFolder, "market" + ts.strftime("%Y%m%d_%H%M") + ".html")
@@ -97,10 +96,10 @@ for link in get_quotes_links(soup):
 
 # Do download in parallel
 p = Pool(WORKERS)
-p.map(download_factsheet, symbols[:10])
+p.map(download_factsheet, symbols)
 
 p = Pool(WORKERS)
-p.map(download_quote_page, quotes[:10])
+p.map(download_quote_page, quotes)
 
 # Save the data file in json
 dataFile = os.path.join(dataFolder, "market" + ts.strftime("%Y%m%d_%H%M") + ".json")

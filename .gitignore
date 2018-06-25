@@ -1,0 +1,6 @@
+*.pyc
+.DS_Store
+venv/
+issue-detail/
+market-data/
+20180620/

@@ -44,7 +44,7 @@ source = ColumnDataSource(data=data)
 print price_changes
 
 # output to static HTML file
-output_file("current-price.html")
+# output_file("current-price.html")
 
 title = "Market @%s (15 minutes delay, source: SetTrade.com)" % dat['ts']
 p = figure(title=title, plot_width=1400, plot_height=700, x_axis_type="log", y_range=(-20,20))
@@ -67,7 +67,7 @@ p.add_layout(Title(text="Percent change of price (%)", align="center"), "left")
 # show(p)
 
 # Create output
-hout = file_html(p, CDN, "ThaiMarketCap.com") 
+hout = file_html(p, CDN, "ThaiMarketCap.com - %s" % dat['ts']) 
 
 with open(OUTPUT_FILE, "w") as f:
     f.write(hout)

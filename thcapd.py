@@ -24,7 +24,7 @@ def send_js(path):
     return send_from_directory('price-indices', path)
 
 def flaskThread():
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
 
 def do_compute():
     try:

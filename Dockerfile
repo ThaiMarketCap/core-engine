@@ -16,9 +16,10 @@ RUN pip install -r /requirements.txt
 COPY thcapd.py /
 COPY compute_indices.py /
 COPY plot_market.py /
+COPY plot_price2mkcap.py /
+COPY www /www
 
 RUN mkdir price-indices
-RUN mkdir www
 
 WORKDIR /
 EXPOSE 5000

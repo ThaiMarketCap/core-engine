@@ -14,6 +14,7 @@ RUN pip install -r /requirements.txt
 
 # the app
 COPY thcapd.py /
+COPY utils.py /
 COPY compute_indices.py /
 COPY plot_market.py /
 COPY plot_price2mkcap.py /

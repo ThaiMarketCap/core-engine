@@ -1,6 +1,15 @@
 from smtplib import SMTP
 from email.mime.text import MIMEText
 
+def market_status():
+    """Either market is open or market is closed.
+        Open:
+            10 AM to 4.30 PM on weekday
+    """
+    is_open = False
+    return is_open
+
+
 def send_message(name, contact, message):
     name = name.encode('utf8','ignore')
     contact = contact.encode('utf8','ignore')

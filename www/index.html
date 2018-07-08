@@ -9,7 +9,7 @@
 body,h1,h5 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
 .bgimg {
-    background-image: url('background.jpg');
+    background-image: url('bg3.jpg');
     min-height: 100%;
     background-position: center;
     background-size: cover;
@@ -21,9 +21,9 @@ body, html {height: 100%}
   <div class="w3-display-middle w3-jumbo">
     <p>Market Visualization of Thai Stocks</p>
   </div>
-  <div class="w3-display-topleft w3-container w3-xlarge">
-    <p><a href="/changes-to-trade-value" class="w3-button w3-black">Price Changes to Trade Value</a></p>
-    <p><a href="/price-to-marketcap" class="w3-button w3-black">Price VS Market Capitalization</a></p>
+  <div class="w3-display-topright w3-container w3-xlarge">
+    <p><a href="/changes-to-trade-value" class="w3-button w3-black">Price Changes VS Trade Value</a></p>
+    <p><a href="/price-to-marketcap" class="w3-button w3-black">Price Changes VS Market Capitalization</a></p>
     <p><button onclick="document.getElementById('data').style.display='block'" class="w3-button w3-black">The Data</button></p>
     <p><button onclick="document.getElementById('contact').style.display='block'" class="w3-button w3-black">Contact</button></p>
   </div>
@@ -31,7 +31,7 @@ body, html {height: 100%}
     <p class="w3-xlarge">{{current_time}}</p>
     <p class="w3-large">{{market_status}}</p>
     <p>&copy;ThaiMarketCap.com
-      <small>powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a> | host by <a href="https://www.chayapan.com">Chayapan Computing</a> |
+      <small>powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a> | created by <a href="https://www.chayapan.com" target="_blank">Chayapan Computing</a> |
       market data: SetTrade.com, set.or.th </p></small>
   </div>
 </div>
@@ -82,7 +82,7 @@ body, html {height: 100%}
         <textarea class="w3-input w3-padding-16 w3-border" placeholder="Comment, suggestion, complaints..." rows=3 required name="message"></textarea>
         <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="{{captcha_challenge}} We need to verify you're human." required name="answer"></p>
         <input type="hidden" name="correct_answer" value="{{captcha_answer}}" />
-        <p><button class="w3-button" type="submit">SEND MESSAGE</button></p>
+        <p><button class="w3-button w3-green" type="submit">SEND MESSAGE</button></p>
       </form>
     </div>
   </div>

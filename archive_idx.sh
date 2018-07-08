@@ -2,4 +2,4 @@
 #
 # Archive Index Data
 
-docker cp --archive thcap1:/price-indices bak-indices
+docker cp --archive thcap1:/price-indices bak-data/

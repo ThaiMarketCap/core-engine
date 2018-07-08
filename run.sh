@@ -1,3 +1,8 @@
+#!/bin/bash
+
+# archive data if any
+./archive_idx.sh
+
 docker stop thcap1
 docker rm thcap1
 

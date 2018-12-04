@@ -14,6 +14,7 @@ RUN pip install -r /requirements.txt
 
 # the app
 COPY thcapd.py /
+COPY thcap_latest_prices.py /
 COPY utils.py /
 COPY compute_indices.py /
 COPY plot_market.py /
@@ -21,7 +22,8 @@ COPY plot_price2mkcap.py /
 COPY www /www
 COPY optjar /optjar
 
-RUN mkdir price-indices
+COPY price-indices /price-indices
+COPY price-data /price-data
 
 WORKDIR /
 EXPOSE 5000

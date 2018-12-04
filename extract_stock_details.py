@@ -16,8 +16,8 @@ from multiprocessing import Pool
 WORKERS = 30
 ts = datetime.now()
 dataFolder = os.path.join(os.path.abspath("."),"""issue-detail""")
-
-
+if not os.path.exists(dataFolder):
+    os.mkdir(dataFolder)
 data = {}
 
 def get_files():

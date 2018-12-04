@@ -14,6 +14,9 @@ import thread
 from random import randint
 from utils import send_message
 
+from optjar.live import priceCaptureThread
+import thcap_latest_prices
+
 app = Flask(__name__, static_url_path='', template_folder="www")
 
 @app.route("/")
@@ -63,7 +66,7 @@ def send_js(path):
 
 def flaskThread():
     app.run(host='0.0.0.0', port=5000)
-
+    
 def do_compute():
     try:
         import compute_indices
@@ -81,6 +84,8 @@ def do_compute():
 if __name__ == '__main__':
     s = 0
     thread.start_new_thread(flaskThread,()) # start Flask
+    thread.start_new_thread(priceCaptureThread,(thcap_latest_prices,)) # start Price capture
+
     while True:
         ts = datetime.now()
         # print "DoW:", ts.weekday() # Friday = 4

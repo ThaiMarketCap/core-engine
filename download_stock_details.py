@@ -22,6 +22,10 @@ r = requests.get(startPage)
 # check content received
 print r.status_code
 
+# Prepare directory
+if not os.path.exists(dataFolder):
+    os.mkdir(dataFolder)
+
 # Save the index page
 indexFile = os.path.join(dataFolder, "market" + ts.strftime("%Y%m%d_%H%M") + ".html")
 with open(indexFile, "w") as f:

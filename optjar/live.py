@@ -24,7 +24,7 @@ def priceCaptureThread(thcap_latest_prices):
                 thcap_latest_prices.capture()
             except Exception as e:
                 print e
-            time.sleep(60) # sleep 1 minute
+            time.sleep(45) # sleep 45 seconds. This gives 1 minute data resolution
         else:
             time.sleep(60 * 15) # sleep 15 minutes during off-hours
             

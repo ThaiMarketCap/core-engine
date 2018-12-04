@@ -16,10 +16,11 @@ import tarfile
 def capture():
     ts = datetime.now()
     
-    dataFolder = os.path.join(os.path.abspath("."),"""market-data""")
+    archiveFolder = os.path.join(os.path.abspath("."),"""price-data""")
+    dataFolder = os.path.join(os.path.abspath("."),"""market-data""") # this is cleared after each collection
     startPage = """http://www.settrade.com/C13_MarketSummary.jsp?detail=STOCK_TYPE&order=N&market=SET&type=S"""
     snapshotFile = os.path.join(dataFolder, "snapshot" + ts.strftime("%Y%m%d_%H%M") + ".dat")
-    archiveFile = "market" + ts.strftime("%Y%m%d_%H%M%S") + ".tar.gz"
+    archiveFile = os.path.join(archiveFolder, "market" + ts.strftime("%Y%m%d") + ".tar")
     r = requests.get(startPage)
     # check content received OK
     # print r.status_code, r.content[:100]
@@ -180,19 +181,27 @@ def capture():
     outFile = os.path.join(dataFolder, "latest-price.json")
     with open(outFile, "w") as f:
         f.write(json.dumps(market_data, sort_keys=True, indent=4, separators=(',', ': ')))
+        
+    fileTimestamp = ts.strftime("%Y%m%d_%H%M%S")
+    compressedOutFile = "market-%s.tar.gz" % fileTimestamp
+    with tarfile.open(compressedOutFile, "w:gz") as t:
+        t.add(outFile, arcname="market-%s.json" % fileTimestamp)
+        print compressedOutFile, t.list()
     
     # Archive result
-    with tarfile.open(archiveFile, "w:gz") as t:
-        t.add(outFile, arcname="market-"+ts.strftime("%Y%m%d_%H%M%S")+".json")
-        print t.list()
+    with tarfile.open(archiveFile, "a:") as t:
+        t.add(compressedOutFile)
+        print archiveFile, t.list()
         
     print "Archive:", archiveFile
     
     # Cleanup:
     # 1. Move archive to permanent storage
     # 2. Cleanup working dir "market-data"
-    shutil.move(archiveFile, "price-data/")
+    # shutil.move(archiveFile, "price-data/") # archive append to price-data/market<DATE>.tar.gz
+    # 3. Remove intermediate compressed file
     shutil.rmtree(dataFolder)
+    os.remove(compressedOutFile)
 
 
 if __name__ == '__main__':

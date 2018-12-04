@@ -1,24 +1,32 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 """
 Collect most recent data from SetTrade.com web site on all stocks.
 Save to JSON file.
+More Information: https://docs.google.com/presentation/d/16_o6492Quo8b3fJDorOjLAXnYPuHF1TpdyoC5B20Mjo/
 """
 
 import requests
 from bs4 import BeautifulSoup
-import os, os.path
+import os, os.path, shutil
 from datetime import datetime
 import json
+import tarfile
 
 ts = datetime.now()
 
 dataFolder = os.path.join(os.path.abspath("."),"""market-data""")
 startPage = """http://www.settrade.com/C13_MarketSummary.jsp?detail=STOCK_TYPE&order=N&market=SET&type=S"""
 snapshotFile = os.path.join(dataFolder, "snapshot" + ts.strftime("%Y%m%d_%H%M") + ".dat")
-
 r = requests.get(startPage)
-# check content received
-print r.status_code
-# print r.content[:100]
+# check content received OK
+# print r.status_code, r.content[:100]
+
+# Make sure data folder is reader.
+if os.path.exists(dataFolder):
+    shutil.rmtree(dataFolder) # Remove existing folder and data if exists.
+# Creating folder
+os.mkdir(dataFolder)
 
 # Save the index page
 indexFile = os.path.join(dataFolder, "market" + ts.strftime("%Y%m%d_%H%M") + ".html")
@@ -27,7 +35,6 @@ with open(indexFile, "w") as f:
 
 # load into BeautifulSoup
 soup = BeautifulSoup(r.content, 'html.parser')
-
 # print soup
 
 def get_quotes_links(soup):
@@ -55,9 +62,12 @@ changes_obs = []
 
 for link in get_quotes_links(soup):
     print link
-    print link.parent.parent.get_text()
-
-    raw_data_cell = link.parent.parent.get_text().split('\n')
+    # print link.parent.parent.get_text()
+    try:
+        raw_data_cell = link.parent.parent.get_text().split('\n')
+    except e:
+        print str(e)
+        break
     raw_data_cell.remove('') # realign cell. Remove empty element.
     symbol = raw_data_cell[0].encode('ascii',errors='ignore') # Remove non ascii chars
     if '<' in symbol: # for flaged stocks
@@ -168,3 +178,15 @@ print market_data['stat']
 outFile = os.path.join(dataFolder, "latest-price.json")
 with open(outFile, "w") as f:
     f.write(json.dumps(market_data, sort_keys=True, indent=4, separators=(',', ': ')))
+
+
+def tardir(path, tar_name):
+    with tarfile.open(tar_name, "w:gz") as t:
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                t.add(ps.path.join(root,file)
+
+archiveFile = "archive1.tar.gz"
+print "Archive:", archiveFile
+tardir(dataFolder, archiveFile)
+

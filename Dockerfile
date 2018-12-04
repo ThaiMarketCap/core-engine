@@ -19,6 +19,7 @@ COPY compute_indices.py /
 COPY plot_market.py /
 COPY plot_price2mkcap.py /
 COPY www /www
+COPY optjar /optjar
 
 RUN mkdir price-indices
 
